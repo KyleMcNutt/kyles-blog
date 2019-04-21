@@ -1,6 +1,6 @@
 workflow "Master branch workflow" {
   on = "push"
-  resolves = ["Build And Deploy"]
+  resolves = ["Deploy to gh-pages"]
 }
 
 action "Install deps" {
@@ -10,7 +10,8 @@ action "Install deps" {
 
 action "master branch only" {
   uses = "actions/bin/filter@master"
-  args = "branch master"
+  args = "branch master",
+  needs = "Install deps"
 }
 
 action "Deploy to gh-pages" {
