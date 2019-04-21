@@ -39,6 +39,6 @@ module.exports = {
       ]
     }
   },
-  siteUrl: 'https://KyleMcNutt.github.io',
-  pathPrefix: '/kyles-blog'
+  siteUrl: 'https://kylemcnutt.github.io',
+  pathPrefix: '/kyles-blog/'
 }
