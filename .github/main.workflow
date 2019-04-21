@@ -1,15 +1,25 @@
-workflow "New workflow" {
+workflow "Master branch workflow" {
   on = "push"
   resolves = ["Build And Deploy"]
 }
 
 action "Install deps" {
-  uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
+  uses = "nuxt/actions-yarn@master"
   args = "install"
 }
 
-action "Build And Deploy" {
-  uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
-  args = "run deploy"
-  needs = ["Install deps"]
+action "master branch only" {
+  uses = "actions/bin/filter@master"
+  args = "branch master"
+}
+
+action "Deploy to gh-pages" {
+  uses = "JamesIves/github-pages-deploy-action@master"
+  env = {
+    BRANCH = "gh-pages"
+    BUILD_SCRIPT = "npm run-script build"
+    FOLDER = "dist"
+  }
+  secrets = ["ACCESS_TOKEN"]
+  needs = ["master branch only"]
 }
