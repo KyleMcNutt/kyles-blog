@@ -10,7 +10,7 @@ action "Install deps" {
 
 action "master branch only" {
   uses = "actions/bin/filter@master"
-  args = "branch master",
+  args = "branch master"
   needs = "Install deps"
 }
 
